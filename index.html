@@ -601,7 +601,7 @@
       document.getElementById('projectVideoInput').value = '';
     }
     
-    // **تابع کلیدی: ذخیره اطلاعات و ساخت لینک قابل اشتراک‌گذاری**
+    // تابع کلیدی: ذخیره اطلاعات و ساخت لینک قابل اشتراک‌گذاری
     function saveAndShowResume() {
         const data = {
             name: document.getElementById('nameInput').value || 'نامشخص',
@@ -616,7 +616,7 @@
         const jsonString = JSON.stringify(data);
         const encodedData = btoa(jsonString); // کدگذاری به Base64
         
-        // **اطلاعات را به صورت Hash به URL اضافه می‌کند**
+        // اطلاعات را به صورت Hash به URL اضافه می‌کند
         window.location.hash = encodedData; 
         
         localStorage.setItem('myResume', jsonString); 
@@ -625,14 +625,14 @@
         showPage('resumePage');
     }
 
-    // **تابع کلیدی: بارگذاری اطلاعات از Hash یا LocalStorage**
+    // تابع کلیدی: بارگذاری اطلاعات از Hash یا LocalStorage
     function loadResumeData(resumeData = null) {
         let data;
         
         if (resumeData) {
             data = resumeData;
         } 
-        // **اولویت اول: خواندن از URL Hash**
+        // اولویت اول: خواندن از URL Hash
         else if (window.location.hash) {
             try {
                 const encodedData = window.location.hash.substring(1);
@@ -643,7 +643,7 @@
                 return;
             }
         } 
-        // **اولویت دوم: خواندن از LocalStorage**
+        // اولویت دوم: خواندن از LocalStorage
         else {
             const saved = localStorage.getItem('myResume');
             if (!saved) return;
@@ -717,29 +717,36 @@
                 a.href = link.trim();
                 a.target = '_blank';
                 a.className = 'contact-item hover-glow';
-                a.innerHTML = `<span class="contact-icon">🔗</span> ${new URL(link.trim()).hostname}`;
+                // تلاش برای نمایش نام دامنه به جای لینک کامل
+                let linkText = link.trim();
+                try {
+                    linkText = new URL(link.trim()).hostname;
+                } catch (e) {} // در صورت خطا در تبدیل به URL، لینک کامل را نگه می‌دارد
+                
+                a.innerHTML = `<span class="contact-icon">🔗</span> ${linkText}`;
                 linksDiv.appendChild(a);
             }
         });
     }
     
-    // **تابع کپی لینک**
+    // تابع کپی لینک (با پیغام به‌روزرسانی شده)
     function shareResume() {
         // لینک کامل شامل هش (#) را کپی می‌کند
         const url = window.location.href.split('#')[0] + window.location.hash; 
         if (navigator.clipboard) {
             navigator.clipboard.writeText(url).then(() => {
-                alert('لینک رزومه کپی شد!\nحالا می‌تونی به دوستات نشون بدی.');
+                // *** متن اخطار به روز رسانی شد ***
+                alert('لینک مستقیم رزومه با موفقیت کپی شد! حالا می‌توانید آن را به اشتراک بگذارید تا دیگران بدون نیاز به ساخت، رزومه شما را ببینند.'); 
             });
         } else {
-            prompt('لینک رزومه:', url);
+            prompt('لینک مستقیم رزومه:', url);
         }
     }
 
-    // **راه‌اندازی اولیه در زمان لود صفحه**
+    // راه‌اندازی اولیه در زمان لود صفحه
     window.addEventListener('load', () => {
         if (window.location.hash) {
-            // اگر لینک دارای هش باشد، رزومه را نمایش بده و فرم را پر نکن
+            // اگر لینک دارای هش باشد، رزومه را نمایش بده
             loadResumeData();
             showPage('resumePage');
         } else {
@@ -747,11 +754,11 @@
             const saved = localStorage.getItem('myResume');
             if (saved) {
                 const data = JSON.parse(saved);
-                document.getElementById('nameInput').value = data.name;
-                document.getElementById('jobInput').value = data.job;
-                document.getElementById('avatarInput').value = data.avatar;
-                document.getElementById('skillsInput').value = data.skills.join(', ');
-                document.getElementById('linksInput').value = data.links.join(', ');
+                document.getElementById('nameInput').value = data.name || '';
+                document.getElementById('jobInput').value = data.job || '';
+                document.getElementById('avatarInput').value = data.avatar || '';
+                document.getElementById('skillsInput').value = (data.skills || []).join(', ');
+                document.getElementById('linksInput').value = (data.links || []).join(', ');
 
                 experiences = data.experiences || [];
                 projects = data.projects || [];
