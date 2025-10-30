@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    /* -------------------------- CSS START -------------------------- */
     :root {
       --primary: #0f0c29;
       --secondary: #302b63;
@@ -105,6 +106,7 @@
 
     .form-group {
       margin: 15px 0;
+      text-align: right;
     }
 
     .form-group label {
@@ -121,6 +123,7 @@
       background: rgba(0,0,0,0.2);
       color: white;
       transition: all 0.3s ease;
+      text-align: right;
     }
 
     .form-group input:focus, .form-group textarea:focus {
@@ -157,6 +160,7 @@
       justify-content: space-between;
       align-items: center;
       transition: all 0.3s ease;
+      text-align: right;
     }
 
     .item:hover {
@@ -172,6 +176,8 @@
       height: 24px;
       font-size: 0.8rem;
       cursor: pointer;
+      flex-shrink: 0;
+      margin-left: 10px;
     }
 
     .save-btn {
@@ -241,6 +247,7 @@
       flex-wrap: wrap;
       gap: 10px;
       margin-top: 15px;
+      justify-content: flex-end; 
     }
 
     .skill {
@@ -263,10 +270,11 @@
       padding: 20px;
       margin: 15px 0;
       transition: all 0.3s ease;
+      text-align: right;
     }
 
     .experience-item {
-      border-left: 4px solid var(--accent);
+      border-right: 4px solid var(--accent);
     }
 
     .experience-item:hover, .project-item:hover {
@@ -291,6 +299,13 @@
       box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
 
+    .contact-info {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-top: 20px;
+    }
+    
     .contact-item {
       display: flex;
       align-items: center;
@@ -299,16 +314,19 @@
       background: rgba(255,255,255,0.05);
       border-radius: 10px;
       transition: all 0.3s ease;
+      text-decoration: none; 
+      color: var(--text); 
     }
 
     .contact-item:hover {
       background: rgba(255,255,255,0.1);
-      transform: translateX(5px);
+      transform: translateX(-5px); 
     }
 
     .contact-icon {
       font-size: 1.2rem;
       color: var(--accent);
+      flex-shrink: 0;
     }
 
     .share-btn {
@@ -336,7 +354,6 @@
       text-decoration: none;
     }
 
-    /* انیمیشن‌های روان */
     .fade-in {
       animation: fadeIn 0.8s ease forwards;
     }
@@ -362,11 +379,11 @@
     .hover-glow:hover {
       box-shadow: 0 0 15px rgba(255,221,85,0.5);
     }
+    /* -------------------------- CSS END -------------------------- */
   </style>
 </head>
 <body>
 
-  <!-- صفحه اصلی -->
   <div class="page active" id="homePage">
     <div class="container">
       <h1 class="title">رزومه هوشمند</h1>
@@ -378,22 +395,21 @@
     </div>
   </div>
 
-  <!-- صفحه ویرایش -->
   <div class="page" id="editPage">
     <button class="back-btn" onclick="showPage('homePage')">←</button>
 
     <div class="section fade-in">
       <h2 class="section-title">مشخصات شخصی</h2>
       <div class="form-group">
-        <label>نام و نام خانوادگی</label>
+        <label for="nameInput">نام و نام خانوادگی</label>
         <input type="text" id="nameInput" placeholder="مثلاً: آراد مقدم">
       </div>
       <div class="form-group">
-        <label>عنوان شغلی</label>
+        <label for="jobInput">عنوان شغلی</label>
         <input type="text" id="jobInput" placeholder="مثلاً: توسعه‌دهنده وب">
       </div>
       <div class="form-group">
-        <label>عکس پروفایل (URL)</label>
+        <label for="avatarInput">عکس پروفایل (URL)</label>
         <input type="text" id="avatarInput" placeholder="https://example.com/photo.jpg">
       </div>
     </div>
@@ -401,7 +417,7 @@
     <div class="section fade-in">
       <h2 class="section-title">مهارت‌ها</h2>
       <div class="form-group">
-        <label>مهارت‌ها (با کاما جدا کن)</label>
+        <label for="skillsInput">مهارت‌ها (با کاما جدا کن)</label>
         <input type="text" id="skillsInput" placeholder="HTML, CSS, JavaScript, UI/UX">
       </div>
     </div>
@@ -409,15 +425,15 @@
     <div class="section fade-in">
       <h2 class="section-title">تجربه کاری</h2>
       <div class="form-group">
-        <label>شرکت</label>
+        <label for="companyInput">شرکت</label>
         <input type="text" id="companyInput" placeholder="مثلاً: شرکت فناوری آراد">
       </div>
       <div class="form-group">
-        <label>عنوان شغلی</label>
+        <label for="positionInput">عنوان شغلی</label>
         <input type="text" id="positionInput" placeholder="مثلاً: توسعه‌دهنده فrontend">
       </div>
       <div class="form-group">
-        <label>توضیحات</label>
+        <label for="descInput">توضیحات</label>
         <textarea id="descInput" placeholder="توضیحات تجربه کاری..."></textarea>
       </div>
       <button class="add-btn" onclick="addExperience()">اضافه کردن تجربه</button>
@@ -427,19 +443,19 @@
     <div class="section fade-in">
       <h2 class="section-title">پروژه‌ها</h2>
       <div class="form-group">
-        <label>نام پروژه</label>
+        <label for="projectNameInput">نام پروژه</label>
         <input type="text" id="projectNameInput" placeholder="مثلاً: سایت فروشگاهی">
       </div>
       <div class="form-group">
-        <label>توضیحات</label>
+        <label for="projectDescInput">توضیحات</label>
         <textarea id="projectDescInput" placeholder="توضیحات پروژه..."></textarea>
       </div>
       <div class="form-group">
-        <label>لینک عکس پروژه (URL)</label>
+        <label for="projectImageInput">لینک عکس پروژه (URL)</label>
         <input type="text" id="projectImageInput" placeholder="https://example.com/project.jpg">
       </div>
       <div class="form-group">
-        <label>لینک ویدئو (YouTube/Vimeo)</label>
+        <label for="projectVideoInput">لینک ویدئو (YouTube/Vimeo)</label>
         <input type="text" id="projectVideoInput" placeholder="https://youtube.com/watch?v=...">
       </div>
       <button class="add-btn" onclick="addProject()">اضافه کردن پروژه</button>
@@ -449,7 +465,7 @@
     <div class="section fade-in">
       <h2 class="section-title">لینک‌ها</h2>
       <div class="form-group">
-        <label>لینک‌ها (با کاما جدا کن)</label>
+        <label for="linksInput">لینک‌ها (با کاما جدا کن)</label>
         <input type="text" id="linksInput" placeholder="https://github.com,https://linkedin.com">
       </div>
     </div>
@@ -457,7 +473,6 @@
     <button class="btn save-btn" onclick="saveAndShowResume()">ذخیره و نمایش رزومه</button>
   </div>
 
-  <!-- صفحه نمایش رزومه -->
   <div class="page" id="resumePage">
     <button class="back-btn" onclick="showPage('editPage')">←</button>
 
@@ -493,9 +508,8 @@
       طراحی شده توسط <a href="https://github.com/arad-moghadam" target="_blank">آراد مقدم</a> — © 2025
     </div>
   </div>
-
   <script>
-    // داده‌های موقت
+    // -------------------------- JAVASCRIPT START --------------------------
     let experiences = [];
     let projects = [];
 
@@ -586,131 +600,169 @@
       document.getElementById('projectImageInput').value = '';
       document.getElementById('projectVideoInput').value = '';
     }
-
+    
+    // **تابع کلیدی: ذخیره اطلاعات و ساخت لینک قابل اشتراک‌گذاری**
     function saveAndShowResume() {
-      const data = {
-        name: document.getElementById('nameInput').value || 'نامشخص',
-        job: document.getElementById('jobInput').value || 'عنوان شغلی',
-        avatar: document.getElementById('avatarInput').value || 'https://via.placeholder.com/150',
-        skills: document.getElementById('skillsInput').value.split(',').map(s => s.trim()).filter(s => s),
-        experiences,
-        projects,
-        links: document.getElementById('linksInput').value.split(',').map(l => l.trim()).filter(l => l)
-      };
+        const data = {
+            name: document.getElementById('nameInput').value || 'نامشخص',
+            job: document.getElementById('jobInput').value || 'عنوان شغلی',
+            avatar: document.getElementById('avatarInput').value || 'https://via.placeholder.com/150',
+            skills: document.getElementById('skillsInput').value.split(',').map(s => s.trim()).filter(s => s),
+            experiences,
+            projects,
+            links: document.getElementById('linksInput').value.split(',').map(l => l.trim()).filter(l => l)
+        };
 
-      localStorage.setItem('myResume', JSON.stringify(data));
-      loadResumeData();
-      showPage('resumePage');
+        const jsonString = JSON.stringify(data);
+        const encodedData = btoa(jsonString); // کدگذاری به Base64
+        
+        // **اطلاعات را به صورت Hash به URL اضافه می‌کند**
+        window.location.hash = encodedData; 
+        
+        localStorage.setItem('myResume', jsonString); 
+
+        loadResumeData(data); 
+        showPage('resumePage');
     }
 
-    function loadResumeData() {
-      const saved = localStorage.getItem('myResume');
-      if (!saved) return;
-
-      const data = JSON.parse(saved);
-
-      document.getElementById('displayAvatar').src = data.avatar;
-      document.getElementById('displayName').textContent = data.name;
-      document.getElementById('displayTitle').textContent = data.job;
-
-      // مهارت‌ها
-      const skillsDiv = document.getElementById('displaySkills');
-      skillsDiv.innerHTML = '';
-      data.skills.forEach(skill => {
-        const span = document.createElement('span');
-        span.className = 'skill hover-glow';
-        span.textContent = skill;
-        skillsDiv.appendChild(span);
-      });
-
-      // تجربه‌ها
-      const expDiv = document.getElementById('displayExperiences');
-      expDiv.innerHTML = '';
-      data.experiences.forEach(exp => {
-        const div = document.createElement('div');
-        div.className = 'experience-item hover-glow';
-        div.innerHTML = `
-          <div class="exp-title">${exp.position}</div>
-          <div class="exp-company">${exp.company}</div>
-          <div class="exp-date">توضیحات: ${exp.desc}</div>
-        `;
-        expDiv.appendChild(div);
-      });
-
-      // پروژه‌ها
-      const projDiv = document.getElementById('displayProjects');
-      projDiv.innerHTML = '';
-      data.projects.forEach(proj => {
-        const div = document.createElement('div');
-        div.className = 'project-item hover-glow';
-        let videoEmbed = '';
-        if (proj.video) {
-          // استخراج ID ویدئو از لینک YouTube
-          const url = new URL(proj.video);
-          let videoId = '';
-          if (url.hostname.includes('youtube.com')) {
-            videoId = url.searchParams.get('v') || '';
-          } else if (url.hostname.includes('youtu.be')) {
-            videoId = url.pathname.substring(1);
-          }
-          if (videoId) {
-            videoEmbed = `<iframe src="https://www.youtube.com/embed/${videoId}" class="project-video" allowfullscreen></iframe>`;
-          }
+    // **تابع کلیدی: بارگذاری اطلاعات از Hash یا LocalStorage**
+    function loadResumeData(resumeData = null) {
+        let data;
+        
+        if (resumeData) {
+            data = resumeData;
+        } 
+        // **اولویت اول: خواندن از URL Hash**
+        else if (window.location.hash) {
+            try {
+                const encodedData = window.location.hash.substring(1);
+                const jsonString = atob(encodedData);
+                data = JSON.parse(jsonString);
+            } catch (e) {
+                console.error("خطا در دیکد کردن داده رزومه از URL:", e);
+                return;
+            }
+        } 
+        // **اولویت دوم: خواندن از LocalStorage**
+        else {
+            const saved = localStorage.getItem('myResume');
+            if (!saved) return;
+            data = JSON.parse(saved);
         }
-        div.innerHTML = `
-          <h3>${proj.name}</h3>
-          <p>${proj.desc}</p>
-          ${proj.image ? `<img src="${proj.image}" alt="عکس پروژه" class="project-image">` : ''}
-          ${videoEmbed}
-        `;
-        projDiv.appendChild(div);
-      });
 
-      // لینک‌ها
-      const linksDiv = document.getElementById('displayLinks');
-      linksDiv.innerHTML = '';
-      data.links.forEach(link => {
-        if (link) {
-          const a = document.createElement('a');
-          a.href = link.trim();
-          a.target = '_blank';
-          a.className = 'contact-item hover-glow';
-          a.innerHTML = `<span class="contact-icon">🔗</span> ${new URL(link.trim()).hostname}`;
-          linksDiv.appendChild(a);
-        }
-      });
-    }
+        if (!data) return;
 
-    function shareResume() {
-      const url = window.location.href.split('#')[0]; // بدون هش
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(url).then(() => {
-          alert('لینک رزومه کپی شد!\nحالا می‌تونی به دوستات نشون بدی.');
+        document.getElementById('displayAvatar').src = data.avatar;
+        document.getElementById('displayName').textContent = data.name;
+        document.getElementById('displayTitle').textContent = data.job;
+
+        // مهارت‌ها
+        const skillsDiv = document.getElementById('displaySkills');
+        skillsDiv.innerHTML = '';
+        data.skills.forEach(skill => {
+            const span = document.createElement('span');
+            span.className = 'skill hover-glow';
+            span.textContent = skill;
+            skillsDiv.appendChild(span);
         });
-      } else {
-        prompt('لینک رزومه:', url);
-      }
+
+        // تجربه‌ها
+        const expDiv = document.getElementById('displayExperiences');
+        expDiv.innerHTML = '';
+        data.experiences.forEach(exp => {
+            const div = document.createElement('div');
+            div.className = 'experience-item hover-glow';
+            div.innerHTML = `
+            <div class="exp-title" style="font-weight: 600;">${exp.position}</div>
+            <div class="exp-company" style="opacity: 0.8;">${exp.company}</div>
+            <div class="exp-date" style="font-size: 0.9em; margin-top: 10px;">${exp.desc}</div>
+            `;
+            expDiv.appendChild(div);
+        });
+
+        // پروژه‌ها
+        const projDiv = document.getElementById('displayProjects');
+        projDiv.innerHTML = '';
+        data.projects.forEach(proj => {
+            const div = document.createElement('div');
+            div.className = 'project-item hover-glow';
+            let videoEmbed = '';
+            if (proj.video) {
+                const url = new URL(proj.video);
+                let videoId = '';
+                if (url.hostname.includes('youtube.com')) {
+                    videoId = url.searchParams.get('v') || '';
+                } else if (url.hostname.includes('youtu.be')) {
+                    videoId = url.pathname.substring(1);
+                }
+                if (videoId) {
+                    videoEmbed = `<iframe src="https://www.youtube.com/embed/${videoId}" class="project-video" allowfullscreen></iframe>`;
+                }
+            }
+            div.innerHTML = `
+            <h3>${proj.name}</h3>
+            <p>${proj.desc}</p>
+            ${proj.image ? `<img src="${proj.image}" alt="عکس پروژه" class="project-image">` : ''}
+            ${videoEmbed}
+            `;
+            projDiv.appendChild(div);
+        });
+
+        // لینک‌ها
+        const linksDiv = document.getElementById('displayLinks');
+        linksDiv.innerHTML = '';
+        data.links.forEach(link => {
+            if (link) {
+                const a = document.createElement('a');
+                a.href = link.trim();
+                a.target = '_blank';
+                a.className = 'contact-item hover-glow';
+                a.innerHTML = `<span class="contact-icon">🔗</span> ${new URL(link.trim()).hostname}`;
+                linksDiv.appendChild(a);
+            }
+        });
+    }
+    
+    // **تابع کپی لینک**
+    function shareResume() {
+        // لینک کامل شامل هش (#) را کپی می‌کند
+        const url = window.location.href.split('#')[0] + window.location.hash; 
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(url).then(() => {
+                alert('لینک رزومه کپی شد!\nحالا می‌تونی به دوستات نشون بدی.');
+            });
+        } else {
+            prompt('لینک رزومه:', url);
+        }
     }
 
-    // بارگذاری داده‌های ذخیره‌شده در صورت بازدید مجدد
+    // **راه‌اندازی اولیه در زمان لود صفحه**
     window.addEventListener('load', () => {
-      const saved = localStorage.getItem('myResume');
-      if (saved) {
-        const data = JSON.parse(saved);
-        document.getElementById('nameInput').value = data.name;
-        document.getElementById('jobInput').value = data.job;
-        document.getElementById('avatarInput').value = data.avatar;
-        document.getElementById('skillsInput').value = data.skills.join(', ');
-        document.getElementById('linksInput').value = data.links.join(', ');
+        if (window.location.hash) {
+            // اگر لینک دارای هش باشد، رزومه را نمایش بده و فرم را پر نکن
+            loadResumeData();
+            showPage('resumePage');
+        } else {
+            // در غیر این صورت، اطلاعات ذخیره شده کاربر را در فرم ویرایش بارگذاری کن
+            const saved = localStorage.getItem('myResume');
+            if (saved) {
+                const data = JSON.parse(saved);
+                document.getElementById('nameInput').value = data.name;
+                document.getElementById('jobInput').value = data.job;
+                document.getElementById('avatarInput').value = data.avatar;
+                document.getElementById('skillsInput').value = data.skills.join(', ');
+                document.getElementById('linksInput').value = data.links.join(', ');
 
-        experiences = data.experiences || [];
-        projects = data.projects || [];
+                experiences = data.experiences || [];
+                projects = data.projects || [];
 
-        renderExperiences();
-        renderProjects();
-      }
+                renderExperiences();
+                renderProjects();
+            }
+        }
     });
+    // -------------------------- JAVASCRIPT END --------------------------
   </script>
 
 </body>
-</html>
+  </html>
